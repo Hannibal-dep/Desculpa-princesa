@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚠️ Erro detectado no sistema</title>
+<title>🚨 URGENTE (mentira, mas quase)</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -19,15 +19,23 @@
     overflow: hidden;
   }
 
-  /* ---------- ECRÃ 1: CURIOSIDADE ---------- */
+  /* ---------- ECRÃ 1: CURIOSIDADE BOBA ---------- */
   #curiosity {
     text-align: center;
     animation: fadeIn 1s ease-in;
     z-index: 2;
+    max-width: 650px;
+  }
+
+  #curiosity .emoji-top {
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: wobble 1.5s infinite;
   }
 
   #curiosity h1 {
-    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-size: clamp(1.1rem, 4vw, 1.8rem);
     color: #ff6b6b;
     margin-bottom: 20px;
     animation: blink 1.5s infinite;
@@ -35,9 +43,16 @@
 
   #curiosity p {
     color: #8b949e;
+    margin-bottom: 15px;
+    font-size: clamp(0.85rem, 2.2vw, 1rem);
+    line-height: 1.7;
+  }
+
+  #curiosity .small-joke {
+    color: #ffa657;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    font-style: italic;
     margin-bottom: 30px;
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    line-height: 1.6;
   }
 
   .btn-link {
@@ -66,7 +81,7 @@
   #terminal {
     display: none;
     width: 100%;
-    max-width: 750px;
+    max-width: 780px;
     background: #161b22;
     border-radius: 10px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.7);
@@ -98,7 +113,7 @@
 
   .term-body {
     padding: 25px;
-    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    font-size: clamp(0.78rem, 2vw, 0.95rem);
     line-height: 1.8;
     color: #c9d1d9;
     max-height: calc(90vh - 60px);
@@ -116,16 +131,8 @@
   .warn { color: #ffa657; }
   .success { color: #7ee787; }
   .comment { color: #8b949e; font-style: italic; }
-  .heart { color: #ff6b9d; }
-
-  .cursor {
-    display: inline-block;
-    width: 8px;
-    height: 1em;
-    background: #58a6ff;
-    animation: blink 1s infinite;
-    vertical-align: text-bottom;
-  }
+  .bold { color: #f0f6fc; font-weight: bold; }
+  .purple { color: #d2a8ff; }
 
   /* ---------- ECRÃ 3: FINAL ---------- */
   #final {
@@ -133,31 +140,43 @@
     text-align: center;
     animation: fadeIn 1s ease-in;
     z-index: 2;
-    max-width: 600px;
+    max-width: 620px;
+  }
+
+  #final .emoji-final {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 15px;
+    display: inline-block;
   }
 
   #final h1 {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    color: #ff6b9d;
-    margin-bottom: 20px;
-    text-shadow: 0 0 20px rgba(255, 107, 157, 0.7);
+    font-size: clamp(1.2rem, 4.5vw, 2rem);
+    color: #7ee787;
+    margin-bottom: 25px;
   }
 
   #final p {
     color: #c9d1d9;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-size: clamp(0.85rem, 2.3vw, 1rem);
     line-height: 1.8;
     margin-bottom: 15px;
   }
 
-  #final .heart-big {
-    font-size: 3rem;
-    animation: pulse 1s infinite;
-    margin: 20px 0;
+  #final .destaque {
+    color: #ffa657;
+    font-weight: bold;
+  }
+
+  #final .filosofico {
+    color: #8b949e;
+    font-style: italic;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #30363d;
   }
 
   .btn-restart {
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 10px 25px;
     background: transparent;
     color: #58a6ff;
@@ -188,13 +207,13 @@
     to { opacity: 1; }
   }
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
   }
 
-  /* Corações de fundo */
-  .bg-hearts {
+  /* Emojis de fundo zoeiros */
+  .bg-emojis {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -203,35 +222,39 @@
     z-index: 0;
   }
 
-  .bg-hearts span {
+  .bg-emojis span {
     position: absolute;
-    color: #ff6b9d;
-    opacity: 0.15;
+    opacity: 0.12;
     animation: floatUp linear infinite;
   }
 
   @keyframes floatUp {
-    from { transform: translateY(100vh); opacity: 0.15; }
+    from { transform: translateY(100vh); opacity: 0.12; }
     to { transform: translateY(-10vh); opacity: 0; }
   }
 </style>
 </head>
 <body>
 
-<!-- Corações de fundo -->
-<div class="bg-hearts" id="hearts"></div>
+<!-- Emojis de fundo -->
+<div class="bg-emojis" id="emojis"></div>
 
-<!-- ECRÃ 1 -->
+<!-- ECRÃ 1: CURIOSIDADE BOBA -->
 <div id="curiosity">
-  <h1>⚠️ ERRO CRÍTICO DETECTADO</h1>
+  <span class="emoji-top">🤖💥</span>
+  <h1>⚠️ ALERTA: BURRICE DETECTADA ⚠️</h1>
   <p>
-    Um bug foi encontrado no sistema.<br>
-    Origem: <span style="color:#ff7b72">eu.exe</span><br>
-    Alvo afetado: <span style="color:#ff6b9d">você.sys</span><br>
-    <br>
-    Deseja executar o <strong>patch de correção</strong>?
+    O sistema identificou um <strong style="color:#ff7b72">nível anormal de burrice</strong><br>
+    nos últimos dias.<br><br>
+    🔎 <strong>Suspeito:</strong> <span style="color:#79c0ff">eu</span><br>
+    🎯 <strong>Vítima:</strong> <span style="color:#ffa657">tu</span><br>
+    📉 <strong>Gravidade:</strong> <span style="color:#ff7b72">catastrófica (tipo, dev level)</span>
   </p>
-  <a class="btn-link" id="startBtn" href="#">▶ Executar fix.exe</a>
+  <p class="small-joke">
+    "Não é vírus, é só um programador que fez asneira.<br>
+    Podes fechar a aba... ou podes ver a confissão. 👀"
+  </p>
+  <a class="btn-link" id="startBtn" href="#">▶ Abrir confissão.verdade</a>
 </div>
 
 <!-- ECRÃ 2: TERMINAL -->
@@ -240,69 +263,83 @@
     <div class="dot red"></div>
     <div class="dot yellow"></div>
     <div class="dot green"></div>
-    <span class="term-title">~/pedido-de-desculpas — bash</span>
+    <span class="term-title">~/confissao — bash</span>
   </div>
   <div class="term-body" id="termBody"></div>
 </div>
 
 <!-- ECRÃ 3: FINAL -->
 <div id="final">
-  <div class="heart-big">❤️</div>
-  <h1>BUILD CONCLUÍDO COM SUCESSO</h1>
-  <p>O patch foi aplicado com sucesso.</p>
-  <p>Meu <code style="color:#ffa657">coração.exe</code> está 100% dedicado a <strong>você</strong>.</p>
-  <p style="color:#7ee787">status: <strong>FOREVER_WITH_YOU</strong> ✅</p>
-  <p style="margin-top:20px; color:#8b949e;">Desculpa, meu amor. 💖</p>
+  <span class="emoji-final">🧘‍♂️</span>
+  <h1>// fim do patch</h1>
+  <p>Errei. Assumi. Ponto.</p>
+  <p>Não vou implorar — <span class="destaque">fica feio</span> e não resolve nada.</p>
+  <p>Não vou prometer mundos — <span class="destaque">já sabes como isso acaba</span>.</p>
+  <p style="margin-top:20px;">A bola está contigo. Joga quando quiseres.</p>
+  <p style="color:#d2a8ff; margin-top:15px;">
+    <em>Mas se demorares muito,<br>vou ter que voltar ao modo "solteiro". 😏</em>
+  </p>
+  <p class="filosofico">
+    "Não controlo a tua decisão.<br>
+    Controlo só o que faço a partir de agora."
+  </p>
   <button class="btn-restart" onclick="location.reload()">↻ Reexecutar</button>
 </div>
 
 <script>
-  // --- Corações de fundo ---
-  const heartsContainer = document.getElementById('hearts');
-  const heartChars = ['❤', '💖', '💕', '💗', '💓'];
-  for (let i = 0; i < 20; i++) {
+  // --- Emojis de fundo zoeiros ---
+  const emojisContainer = document.getElementById('emojis');
+  const emojiChars = ['🤖', '💥', '🐛', '💩', '⚙️', '🛠️', '👀', '🤡', '📉', '🚨'];
+  for (let i = 0; i < 22; i++) {
     const s = document.createElement('span');
-    s.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    s.textContent = emojiChars[Math.floor(Math.random() * emojiChars.length)];
     s.style.left = Math.random() * 100 + '%';
-    s.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    s.style.fontSize = (Math.random() * 20 + 14) + 'px';
     s.style.animationDuration = (Math.random() * 10 + 8) + 's';
     s.style.animationDelay = (Math.random() * 10) + 's';
-    heartsContainer.appendChild(s);
+    emojisContainer.appendChild(s);
   }
 
-  // --- Linhas do terminal ---
+  // --- Linhas do terminal (estoico + provocativo) ---
   const lines = [
-    { text: '$ git commit -m "tentando consertar meu erro"', cls: 'cmd' },
-    { text: '  [master 1a2b3c4] tentando consertar meu erro', cls: 'comment' },
+    { text: '$ sudo apt-get install humildade', cls: 'cmd' },
+    { text: '  Lendo listas de pacotes... Feito', cls: 'comment' },
+    { text: '  humildade instalada com sucesso.', cls: 'success' },
     { text: '', cls: '' },
-    { text: '$ ./pedir_desculpas.sh --amor=total --sinceridade=100', cls: 'cmd' },
+    { text: '$ ./confessar.sh --sem-mimimi --sem-drama', cls: 'cmd' },
     { text: '', cls: '' },
-    { text: '> Verificando status do relacionamento...', cls: 'comment' },
-    { text: '  [ OK ] amor: ATIVO', cls: 'success' },
-    { text: '  [ OK ] carinho: DENTRO DO ESPERADO', cls: 'success' },
-    { text: '  [WARN] erro_cometido: DETECTADO', cls: 'warn' },
-    { text: '  [ OK ] coração: APAIXONADO', cls: 'success' },
+    { text: '> Auditando os factos:', cls: 'comment' },
+    { text: '  [+] Eu errei.', cls: 'error' },
+    { text: '  [+] Não foi mal-entendido. Foi asneira mesmo.', cls: 'error' },
+    { text: '  [+] Tu tens todo o direito de estar chateada.', cls: 'warn' },
+    { text: '  [+] Não vou fingir que não aconteceu.', cls: 'warn' },
     { text: '', cls: '' },
-    { text: '> Analisando o bug...', cls: 'comment' },
-    { text: '  ERROR: eu fui um idiota 😔', cls: 'error' },
-    { text: '  CAUSE: falta de pensar antes de agir', cls: 'error' },
-    { text: '  IMPACT: você ficou magoada — isso dói em mim', cls: 'error' },
+    { text: '> Verificando desculpas esfarrapadas...', cls: 'comment' },
+    { text: '  [X] "foi sem querer" — rejeitado', cls: 'error' },
+    { text: '  [X] "estava cansado" — rejeitado', cls: 'error' },
+    { text: '  [X] "tu também..." — rejeitado (não vira o jogo)', cls: 'error' },
+    { text: '  [✓] "eu errei e assumo" — aceite', cls: 'success' },
     { text: '', cls: '' },
-    { text: '> Aplicando patch de correção...', cls: 'comment' },
-    { text: '  npm install pedido-de-desculpas --sincero', cls: 'cmd' },
-    { text: '  ✔ Pacote instalado com sucesso', cls: 'success' },
+    { text: '> O que NÃO vou fazer:', cls: 'comment' },
+    { text: '  - implorar ............ (não fica bem a ninguém)', cls: 'warn' },
+    { text: '  - prometer mundos ..... (tu já me conheces)', cls: 'warn' },
+    { text: '  - insistir até cansar . (isso é manipulação)', cls: 'warn' },
     { text: '', cls: '' },
-    { text: '> Executando testes de sinceridade...', cls: 'comment' },
-    { text: '  ✓ teste_1: "eu reconheço meu erro" ......... PASS', cls: 'success' },
-    { text: '  ✓ teste_2: "eu entendo por que te magoei" .. PASS', cls: 'success' },
-    { text: '  ✓ teste_3: "vou melhorar de verdade" ....... PASS', cls: 'success' },
-    { text: '  ✓ teste_4: "te amo mais que tudo" .......... PASS', cls: 'success' },
+    { text: '> O que VOU fazer:', cls: 'comment' },
+    { text: '  [1] Assumir o erro. Feito.', cls: 'success' },
+    { text: '  [2] Não repetir. Em progresso...', cls: 'success' },
+    { text: '  [3] Esperar. Sem pressa, sem cobrança.', cls: 'success' },
     { text: '', cls: '' },
-    { text: '> Build final...', cls: 'comment' },
-    { text: '  98% [============================>  ] ', cls: 'warn' },
-    { text: '  100% [=============================] DONE', cls: 'success' },
+    { text: '> Calculando odds de reconciliação...', cls: 'comment' },
+    { text: '  Modelo: estoico + sincero + sem drama', cls: 'purple' },
+    { text: '  Previsão: depende de ti. (óbvio)', cls: 'purple' },
     { text: '', cls: '' },
-    { text: '🎉 Patch aplicado. Coração pronto para reconexão.', cls: 'heart' }
+    { text: '⚠️  Aviso do sistema:', cls: 'bold' },
+    { text: '    A decisão é 100% tua. Eu só deixei os dados.', cls: 'bold' },
+    { text: '', cls: '' },
+    { text: '> A provocação grátis do dia:', cls: 'comment' },
+    { text: '  "Não tenciono ficar aqui a olhar para o ecrã', cls: 'purple' },
+    { text: '   para sempre. Pensa nisso. 😏"', cls: 'purple' }
   ];
 
   const startBtn = document.getElementById('startBtn');
@@ -326,7 +363,7 @@
         setTimeout(() => {
           terminal.style.display = 'none';
           finalScreen.style.display = 'block';
-        }, 1200);
+        }, 1400);
         return;
       }
       const line = lines[i];
@@ -337,7 +374,7 @@
       termBody.appendChild(p);
       termBody.scrollTop = termBody.scrollHeight;
       i++;
-    }, 550);
+    }, 480);
   }
 </script>
 
